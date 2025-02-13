@@ -3,24 +3,18 @@
  */
 package org.example
 
-import org.example.service.*
+import org.example.processor.*
+import org.example.model.Task
 
 fun main(args: Array<String>) {
-    val expression = "5 + 3 * 2"
+    val expression = "5 + 3 * 2 - (5 / 5) + 1 - 4"
     val iterations = if (args.isNotEmpty()) args[0].toIntOrNull() ?: 1 else 1
     println("Evaluating expression '$expression' $iterations times...")
-    var result = 0f
+    val tasks = List(iterations) { Task(expression) }
     val startTime = System.nanoTime()
-    repeat(iterations) {
-        val lexer = Lexer(expression)
-        val tokens = lexer.tokenize()
-        val parser = Parser(tokens)
-        val ast = parser.expr()
-        val interpreter = Interpreter()
-        result = interpreter.eval(ast)
-    }
+    println("Thread pool:")
+    TaskProcessor(ProcessingStrategy.FIXED_THREAD_POOL).submit(tasks).shutdown()
     val endTime = System.nanoTime()
     val durationMs = (endTime - startTime) / 1_000_000.0
     println("Execution time: $durationMs ms")
-    println("Result: $result")
 }
