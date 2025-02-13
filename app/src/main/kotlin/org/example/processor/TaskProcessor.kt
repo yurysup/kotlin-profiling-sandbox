@@ -10,7 +10,10 @@ enum class ProcessingStrategy {
 }
 
 class TaskProcessor(strategy: ProcessingStrategy = ProcessingStrategy.FIXED_THREAD_POOL) {
-    private val N_THREADS = 4
+
+    companion object {
+        private const val N_THREADS = 4
+    }
     private val executor = when (strategy) {
         ProcessingStrategy.FIXED_THREAD_POOL -> Executors.newFixedThreadPool(N_THREADS)
         ProcessingStrategy.SINGLE_THREADED -> Executors.newSingleThreadExecutor()
@@ -41,4 +44,5 @@ class TaskProcessor(strategy: ProcessingStrategy = ProcessingStrategy.FIXED_THRE
         executor.shutdown()
         executor.awaitTermination(60, TimeUnit.SECONDS) // wait 20s for all tasks to complete
     }
+    
 }
