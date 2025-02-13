@@ -13,13 +13,13 @@ Download [VisualVM](https://visualvm.github.io/download.html).
 Extract the profiler and start GUI.
 
 ### jcmd
-Find your JVM process `<PID>` by running `$ jps`.
+Find your JVM process `<PID>` by running `$ jps`.</p>
 Execute `$ jcmd <PID> help` to see a list of allowed commands.
 
 ### jfr + jmc
-Download [JDK Mission Control](https://www.oracle.com/java/technologies/javase/products-jmc9-downloads.html).
-Find your JVM process `<PID>` by running `$ jps`.
-Execute `$ jcmd <PID> JFR.start name=myrec filename=recording.jfr settings=profile` to start JFR record.
+Download [JDK Mission Control](https://www.oracle.com/java/technologies/javase/products-jmc9-downloads.html).</p>
+Find your JVM process `<PID>` by running `$ jps`.</p>
+Execute `$ jcmd <PID> JFR.start name=myrec filename=recording.jfr settings=profile` to start JFR record.</p>
 Run `$ jcmd <PID> JFR.stop name=myrec` to stop it and analyze using JDK Mission Control GUI later.
 
 ### jstat
